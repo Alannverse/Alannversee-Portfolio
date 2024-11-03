@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio Praseptialan</title>
+    <link href="dist/output.css" rel="stylesheet" />
+    <style>
+      /* Gaya Kustom */
+      /* Animasi untuk elemen saat halaman dimuat */
+      @keyframes fadeInOnLoad {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-on-load {
+        opacity: 0; /* Pastikan elemen tidak terlihat sampai animasi dimulai */
+        animation: fadeInOnLoad 1s ease-out forwards;
+      }
+
+      /* Tambahkan efek untuk elemen yang dimuat di atas */
+      @media (max-width: 768px) {
+        .animate-on-load {
+          animation-duration: 0.8s; /* Penyesuaian durasi animasi pada perangkat mobile */
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .section-left {
+        animation: slideInLeft 1s ease-out;
+      }
+
+      .section-right {
+        animation: slideInRight 1s ease-out;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .hamburger div {
+        width: 100%;
+        height: 3px;
+        background-color: #389ae4;
+        transition: all 0.3s ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: flex;
+        }
+        .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #f0f0f0; /* Background terang */
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    color: #1a202c; /* Teks gelap untuk kontras */
+}
+
+@media (prefers-color-scheme: dark) {
+    .nav-links {
+        background-color: #717171; /* Background gelap */
+        color: #f0f0f0; /* Teks terang untuk kontras */
+    }
+}
+        .nav-links.active {
+          display: flex;
+        }
+      }
+
+      .toggle-dark-light {
+        background-color: #ffffff;
+        border-radius: 50px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        height: 34px;
+        position: relative;
+        width: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5px;
+      }
+
+      .toggle-circle {
+        background-color: #000000;
+        border-radius: 50%;
+        height: 26px;
+        transition: 0.3s;
+        width: 26px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .toggle-dark-light.dark .toggle-circle {
+        transform: translateX(36px);
+        background-color: #ffffff;
+      }
+
+      .dark-mode {
+        background-color: #000000;
+        color: #fff;
+      }
+
+      .dark-mode .gallery-item {
+        background-color: #2d3748;
+      }
+
+      /* Efek transisi */
+      body {
+        transition: background-color 0.5s, color 0.5s;
+      }
+
+      .gallery-item {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 4px 10px rgb(255, 255, 255);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .fade-in {
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Smooth Scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Welcome Section */
+      .welcome-section {
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      .welcome-section div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeInOnLoad 1s ease-out forwards;
+      }
+      .welcome-section h1 {
+        font-size: 3rem;
+        margin-bottom: 30px;
+      }
+
+      .welcome-section p {
+        font-size: 1.25rem;
+        margin-bottom: 50px;
+      }
+
+      .profile-picture {
+        border-radius: 50%;
+        width: auto;
+        height: 400px;
+        object-fit: cover;
+        margin-bottom: 20px;
+      }
+
+      .dark-mode .welcome-section {
+        background: linear-gradient(135deg, #8ebfff, #000000);
+      }
+
+      .dark-mode .nav-links a {
+        color: #ddd;
+      }
+
+      .dark-mode .nav-links a:hover {
+        color: #ffcd38;
+      }
+
+      .dark-mode .text-blue-500 {
+        color: #ffcd38;
+      }
+
+      .dark-mode .bg-gray-200 {
+        background-color: #2d3748;
+      }
+
+      .dark-mode .bg-white {
+        background-color: #1a202c;
+      }
+
+      .dark-mode .hover\:text-blue-500:hover {
+        color: #ffcd38;
+      }
+    </style>
+   <body class="dark:bg-gray-800 dark:text-white">  
+    
+   </body>
+     <!-- Welcome Section -->
+     <section class="welcome-section">
+       <div>
+         <img src="dist/img/alann.png" alt="Foto Profil Praseptialan" class="profile-picture" />
+         <h1>Welcome to My Portfolio!</h1>
+         <p>
+           "Hi there! ,Temukan kreativitas saya dan selami karya-karya saya. Enjoy exploring!"
+         </p>
+       </div>
+     </section>
+ 
+     <!-- Navigasi -->
+     <nav
+       class="flex items-center justify-between p-6 bg-white dark:bg-gray-900 shadow-md fixed top-0 w-full z-10"
+     >
+       <div class="text-2xl font-bold">
+         <a href="#" class="fade-in">Praseptialan</a>
+       </div>
+       <div class="md:hidden">
+         <button id="hamburger" class="hamburger focus:outline-none">
+           <div></div>
+           <div></div>
+           <div></div>
+         </button>
+       </div>
+       
+       <ul class="hidden md:flex space-x-8 nav-links">
+         <li><a href="#tentang" class="hover:text-blue-500">Tentang Saya</a></li>
+         <li><a href="#proyek" class="hover:text-blue-500">Proyek</a></li>
+         <li><a href="#hobi" class="hover:text-blue-500">Hobi</a></li>
+         <li><a href="#galeri" class="hover:text-blue-500">Galeri</a></li>
+         <li><a href="#blog" class="hover:text-blue-500">Blog</a></li>
+         <li><a href="#kontak" class="hover:text-blue-500">Kontak</a></li>
+         <li>
+           <div id="toggle" class="toggle-dark-light">
+             <div class="toggle-circle"></div>
+           </div>
+         </li>
+       </ul>
+     </nav>
+ 
+     <!-- Tentang Saya -->
+     <section id="tentang" class="py-16 px-8 text-center">
+       <h2 class="text-4xl font-bold mb-4">🧑‍💻 Tentang Saya</h2>
+       <p class="text-lg mb-6 fade-in">
+         "Perkenalkan, saya Praseptialan, mahasiswa Teknik Informatika di Universitas Kristen Indonesia Paulus Makassar. Dengan latar belakang di bidang teknologi dan desain, saya berusaha untuk menciptakan karya yang inovatif dan berdampak. Temukan lebih banyak tentang perjalanan saya melalui portofolio ini."
+       </p>
+     </section>
+ 
+     <!-- Proyek -->
+     <section
+       id="proyek"
+       class="py-16 px-8 fade-in"
+     >
+       <h2 class="text-4xl font-bold mb-8 text-center transition-all">📂 Proyek</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Desain Figma "Klinik Pediatrica Husada Makassar"</h3>
+           <img
+             src="dist/img/figma 1.png"
+             alt="Proyek Figma"
+             class="w-full h-40 object-cover rounded mb-4"
+           />
+           <p>
+             "Proyek desain ini menggunakan Figma untuk menghasilkan wireframe yang menarik untuk tampilan web,
+              meski belum melibatkan prototipe."
+           </p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Desain Figma "Klinik Pediatrica Husada Makassar"</h3>
+           <img
+             src="dist/img/figma 2.png"
+             alt="Proyek Figma"
+             class="w-full h-40 object-cover rounded mb-4"
+           />
+           <p>"Proyek desain ini menggunakan Figma untuk menghasilkan prototipe yang menarik bagi tampilan web."</p>
+         </div>
+         <div
+         class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+       >
+         <h3 class="text-2xl font-semibold mb-4">"Berikut Adalah Tampilan Desain Klinik Pediatrica Husada Makassar"</h3>
+         <img
+           src="dist/img/desainfigma.png"
+           alt="Proyek Figma"
+           class="w-full h-40 object-cover rounded mb-4"
+         />
+         <p>
+           "Desain ini dirancang untuk memberikan pengalaman pengguna yang menyenangkan,
+            dengan fokus pada kemudahan navigasi dan informasi yang jelas tentang layanan klinik."
+         </p>
+       </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Visual Basic "Form Data Barang"</h3>
+           <img
+             src="dist/img/vb1.png"
+             alt="Proyek Figma"
+             class="w-full h-40 object-cover rounded mb-4"
+           />
+          <p>"Form Data Barang adalah antarmuka dalam sebuah aplikasi yang dibuat menggunakan Visual Basic (VB) untuk mengelola informasi terkait barang,
+            seperti nama, kode, harga, dan stok.. Melalui form ini, pengguna dapat melakukan berbagai operasi, seperti:Input Data
+           Edit Data,Hapus Data, Simpan Data,BlankForm dan Close Form"</p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Form Data Barang</h3>
+           <video controls>
+             <source src="dist/img/rek1.mp4" type="video/mp4">
+             Your browser does not support the video tag.
+         </video>
+           <p>"Adapaun source codenya untuk form data barang diatas."</p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Visual Basic "Form Data Suplier"</h3>
+           <img
+             src="dist/img/vb2.png"
+             alt="Proyek Figma"
+             class="w-full h-40 object-cover rounded mb-4"
+           />
+           <p>"Form Data Suplier adalah antarmuka dalam sebuah aplikasi yang dibuat menggunakan Visual Basic (VB) untuk mengelola informasi terkait suplier, seperti nama, alamat, nomor telepon, dan email. Melalui form ini,
+              pengguna dapat melakukan berbagai operasi, seperti: Input Data, Edit Data, Hapus Data, Simpan Data, BlankForm, dan Close Form."</p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Form Data Suplier</h3>
+           <video controls>
+             <source src="dist/img/rek2.mp4" type="video/mp4">
+             Your browser does not support the video tag.
+         </video>
+         <p>"Adapun source codenya untuk form data barang diatas."</p>
+       </div>
+       <div
+       class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+     >
+       <h3 class="text-2xl font-semibold mb-4">Visual Basic "Form Transaksi Pembelian"</h3>
+       <img
+         src="dist/img/vb3.png"
+         alt="Proyek Figma"
+         class="w-full h-40 object-cover rounded mb-4"
+       />
+       <p>"Form Transaksi Pembelian adalah antarmuka dalam sebuah aplikasi yang dibuat menggunakan Visual Basic (VB) untuk mengelola informasi transaksi pembelian, seperti nomor transaksi, tanggal pembelian, daftar barang, jumlah, dan total harga. Melalui form ini,
+          pengguna dapat melakukan berbagai operasi, seperti: Input Transaksi, Edit Transaksi, Hapus Transaksi, Simpan Transaksi, BlankForm, dan Close Form"."</p>
+     </div>
+     <div
+       class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+     >
+       <h3 class="text-2xl font-semibold mb-4">Form Transaksi Pembelian</h3>
+       <video controls>
+         <source src="dist/img/rek3.mp4" type="video/mp4">
+         Your browser does not support the video tag.
+     </video>
+     <p>"Adapun source codenya untuk form data barang diatas."</p>
+   </div>
+   
+       </div>
+     </section>
+ 
+     <!-- Hobi -->
+     <section id="hobi" class="py-16 px-8 fade-in">
+       <h2 class="text-4xl font-bold mb-8 text-center">🎧Hobi🥁</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">Bermain Drum</h3>
+           <img
+             src="dist/img/hobby1.jpg"
+             alt="Bermain Drum"
+             class="w-full h-45 object-cover rounded mb-4"
+           />
+           <p>
+             “Menggabungkan hobi bermain drum dengan pelayanan di gereja memberi saya kebahagiaan ganda.
+             Setiap ritme yang saya ciptakan membawa pesan cinta dan sukacita bagi mereka yang mendengarnya.”
+           </p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">"Dunia Game: Tempat Imajinasi dan Strategi Bertemu"</h3>
+           <img
+             src="dist/img/hobby2.jpg"
+             alt="Bermain Drum"
+             class="w-full h-45 object-cover rounded mb-4"
+           />
+           <p>Dibalik layar, mereka belajar kerja sama tim, pengambilan keputusan cepat, dan ketekunan dalam mencapai tujuan. Dengan setiap pertandingan,
+             mereka tidak hanya mengejar kemenangan, tetapi juga mengejar pembelajaran dan pengalaman baru..</p>
+         </div>
+         <div
+         class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+       >
+         <h3 class="text-2xl font-semibold mb-4">"Dengan Spotify teman setia di setiap perjalanan"</h3>
+         <img
+           src="dist/img/hobby6.jpg"
+           alt="Bermain Drum"
+           class="w-full h-45 object-cover rounded mb-4"
+         />
+         <p>"Spotify memudahkan saya menjelajahi berbagai genre musik dari seluruh penjuru dunia,
+            semua ada di ujung jari."</p>
+       </div>
+         <div
+         class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+       >
+         <h3 class="text-2xl font-semibold mb-4">"Game On! Mengasah Keterampilan di Dunia Maya"</h3>
+         <img
+           src="dist/img/hobby4.jpg"
+           alt="Bermain Drum"
+           class="w-full h-45 object-cover rounded mb-4"
+         />
+         <p>Dibalik layar, mereka belajar kerja sama tim, pengambilan keputusan cepat, dan ketekunan dalam mencapai tujuan. Dengan setiap pertandingan,
+           mereka tidak hanya mengejar kemenangan, tetapi juga mengejar pembelajaran dan pengalaman baru..</p>
+       </div>
+       <div
+       class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+     >
+       <h3 class="text-2xl font-semibold mb-4">"Suara dan Ketenangan: Musik sebagai Pelarian Sejati"</h3>
+       <img
+         src="dist/img/hobby5.jpg"
+         alt="Bermain Drum"
+         class="w-full h-45 object-cover rounded mb-4"
+       />
+       <p>"Ketika dunia terasa penuh tekanan dan tantangan datang silih berganti, saya menemukan ketenangan dalam alunan musik yang membelai jiwa, 
+         seolah setiap nada membisikkan ketenangan dan menguatkan hati untuk tetap melangkah dengan tegar menghadapi setiap babak kehidupan."</p>
+     </div>
+     <div
+     class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+   >
+     <h3 class="text-2xl font-semibold mb-4">"Smash Santai, Ketawa Nggak Habis-habis"</h3>
+     <img
+       src="dist/img/hobby7.jpeg"
+       alt="Bermain Drum"
+       class="w-full h-45 object-cover rounded mb-4"
+     />
+     <p>Bulu tangkis itu serunya main kejar-kejaran sama shuttlecock, sambil ngakak tiap smash yang nyangkut di net. Raket jadi senjata, tapi lebih sering buat pukul angin.
+        Mainnya bareng temen, biar salah pukulnya bisa diketawain bareng!</p>
+   </div>
+       </div>
+     </section>
+ 
+     <!-- Galeri -->
+     <section
+       id="galeri"
+       class="py-16 px-8 fade-in"
+     >
+       <h2 class="text-4xl font-bold mb-8 text-center">📸 Galeri</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+         <img
+         src="dist/img/gl20.jpg"
+         alt="Kegiatan 2"
+         class="w-full h-42 object-cover rounded mb-4"
+       />
+       <p class="text-2xl">"Keindahan Rumah Adat Toraja"</P>
+         <p>"Menelusuri keindahan tradisi yang terpatri dalam arsitektur rumah adat Toraja, di mana setiap ukiran dan lekuk bangunan menceritakan kisah nenek moyang yang sarat akan nilai-nilai luhur. Atapnya yang menjulang bak perahu menuju langit,
+            menggambarkan hubungan harmonis antara manusia dan alam semesta. Setiap detailnya menyimpan pesan kebijaksanaan dan warisan budaya yang terus hidup dan menginspirasi hingga kini. 🏠✨"</p>
+            <p>Gimana, makin terasa keindahannya kan? 😊</p>
+      </div>
+         
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+         <img
+         src="dist/img/gl19.jpg"
+         alt="Kegiatan 1"
+         class="w-full h-45 object-cover rounded mb-4"
+       />
+       <p class="text-2xl">"Kemegahan Patung Yesus di Burake"</P>
+        <p>"Patung Yesus Kristus yang berdiri megah di puncak Bukit Burake, Tana Toraja, menjadi simbol iman dan harapan. 
+         Dengan tangan yang terentang luas, patung ini seakan memeluk seluruh alam Toraja, 
+         membawa pesan kedamaian dan perlindungan bagi setiap jiwa yang memandangnya."</p>
+     </div>
+  <div
+ class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+ >
+ <img
+   src="dist/img/gl9.jpg"
+   alt="Kegiatan 1"
+   class="w-full h-45 object-cover rounded mb-4"
+ />
+ <p class="text-2xl">"Pengintai Dunia Nyata"</P>
+   <p> "Saya dan pikiran-pikiran liar, duduk di bangku tua, 
+     mencoba memecahkan misteri terbesar: makan malam apa nanti?"</p>
+ </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+         <img
+         src="dist/img/gl1.jpg"
+         alt="Kegiatan 3"
+         class="w-full h-45 object-cover rounded mb-4"
+       />
+       <p class="text-2xl">"Kursi Keramat Indomaret: Tempat Segala Pikiran Menyerbu"</P></P>
+    <p>
+     Duduk di kursi ini, di pojokan depan Indomaret, sambil ngopi dan nge-vape, 
+     tiba-tiba pikiran jadi penuh: "Uang bulanan belum turun, terus gimana isi token
+      listrik?", "Game udah naik rank, tapi hidup kok gini-gini aja?", "Besok beli es teh lagi apa coba Nutri Boost?" 
+      Kursi ini bukan sekedar tempat duduk, tapi tempat di mana para laki-laki merenungi hidup dan cerita tentang masalah dunia
+       sambil menunggu promo Indomaret berikutnya. </p>
+       </div>
+         <div
+         class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+       >
+       <img
+       src="dist/img/gl10.jpg "
+       alt="Kegiatan 3"
+       class="w-full h-45 object-cover rounded mb-4"
+     />
+     <p class="text-2xl">"Antar Jemput Pagi: Pasukan Kurir di Jalan"</P>
+       <p>Siapa bilang hanya paket yang bisa diantar? Pagi ini, pasukan kurir siap 
+         mengantar diri mereka sendiri ke destinasi masing-masing wkwk!</p>
+   </div>
+       <div
+       class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+     >
+       <img
+         src="dist/img/gl2.jpeg"
+         alt="Kegiatan 3"
+         class="w-full h-43 object-cover rounded mb-4"
+       />
+       <p class="text-2xl">"Kursi Para Pemikir Kode"</P>
+         <p>Di kursi ini, otak multitasking antara debug, ngoding, dan memikirkan hidup.
+            Kalau baris kode bisa diperbaiki, kenapa hidup nggak?</p>
+     </div>
+     <div
+     class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+   >
+     <img
+       src="dist/img/gl4.jpeg"
+       alt="Kegiatan 3"
+       class="w-full h-45 object-cover rounded mb-4"
+     />
+     <p class="text-2xl">Jokowi: Akhir Jabatannya yang Berkesan</P>
+       <p>“Jokowi di akhir jabatannya seperti menutup babak dengan grand finale: penuh warna, penuh aksi, dan dengan gaya yang tak terlupakan.
+          Seakan dia berkata, ‘Terima kasih dan sampai jumpa!’ 🎩✨”</p>
+   </div>
+   <div
+   class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+ >
+   <img
+     src="dist/img/gl13.jpeg"
+     alt="Kegiatan 1"
+     class="w-auto h-45 object-cover rounded mb-4"
+   />
+   <p class="text-2xl">Gen Z: Penjelajah Digital
+   </P>
+     <p>
+       "Gen Z adalah penjelajah digital sejati, yang menjelajahi internet dengan semangat petualang masa kini. Setiap swipe adalah langkah baru menuju dunia yang penuh peluang dan inspirasi. Mereka bagaikan ninja digital, lincah dalam beradaptasi dan
+        penuh kreativitas, mengubah setiap momen menjadi ruang untuk eksplorasi dan inovasi. 🌍🚀✨"</p>
+ <p>Gimana, keren kan? 😎</p>
+       </div>
+ <div
+ class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+ >
+ <img
+   src="dist/img/gl11.jpeg"
+   alt="Kegiatan 1"
+   class="w-auto h-45 object-cover rounded mb-4"
+ />
+ <p class="text-2xl">"Nabung Pintar, Biar Masa Depan Nggak Bikin Pusing"</P>
+   <p>Ini dia trik anak muda yang paham pentingnya ngatur duit. Dengan jar-tabungan yang udah di-label buat mobil, rumah, pendidikan, dan investasi, setiap uang yang masuk punya tujuan jelas. Menurut kalian, gimana? Nabung begini bikin hidup lebih chill, nggak?
+   Tangan udah standby buat masukin duit, kayak ngasih tahu, "Gua nabung, tapi nggak asal-asalan!" Nabung dengan cara ini, biar masa depan nggak cuma sekadar rencana, tapi jadi kenyataan yang epic. Jadi, siap-siap jadi boss buat hidup lo sendiri!
+   </p>
+ </div>
+ 
+ <div
+ class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+ >
+ <img
+   src="dist/img/gl12.jpeg"
+   alt="Kegiatan 1"
+   class="w-auto h-45 object-cover rounded mb-4"
+ />
+ <p class="text-2xl">  "Mindset Lelah, Bingung Bawaannya"</P>
+   <p>Udah di rumah, tapi pikiran masih jalan-jalan. Bikin mikir keras, "Gimana caranya pulang, padahal udah di rumah?" Kayaknya ini situasi yang relatable banget! 
+     Menurut kalian gimana? Pernah ngalamin, nggak? Kadang emang badan udah di tempat, tapi otak masih loading... bisa relate kan?</p>
+ </div>
+    </div>
+     </section>
+ 
+     <!-- Blog -->
+     <section id="blog" class="py-16 px-8 fade-in">
+       <h2 class="text-4xl font-bold mb-8 text-center">✍️ Blog</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">"Memahami Peran Teknologi di Masa Depan: Pandangan Seorang Mahasiswa Semester 3"</h3>
+           <p>
+             "Meski baru semester 3, saya sudah bisa merasakan bagaimana perubahan teknologi membuka begitu banyak peluang baru. Dalam waktu singkat, saya telah melihat bagaimana 
+             teknologi mengubah cara kita bekerja, berkomunikasi, dan bahkan berinteraksi sehari-hari. Perkembangan pesat dalam bidang seperti kecerdasan buatan, blockchain, dan pengembangan perangkat lunak telah membuka pintu bagi inovasi yang sebelumnya tak terbayangkan.
+             Saya menyaksikan sendiri bagaimana teknologi baru dapat meningkatkan efisiensi, menciptakan solusi untuk masalah lama, dan membuka peluang karir yang menarik.
+             Dunia ini terus berkembang dengan cepat, dan saya sangat bersemangat untuk terus belajar dan berkembang bersama dengan perubahan itu. Setiap semester, saya berusaha untuk tidak hanya memahami teori di balik teknologi, tetapi juga menerapkannya dalam proyek-proyek praktis. Dengan mengikuti tren terbaru, berpartisipasi dalam komunitas teknologi, dan terus mengeksplorasi alat serta bahasa pemrograman baru, saya berkomitmen untuk menjadi bagian dari transformasi digital yang sedang berlangsung. Melalui pendidikan saya dan pengalaman praktis yang saya kumpulkan, saya berharap dapat berkontribusi pada masa depan yang inovatif dan dinamis di dunia teknologi."
+           </p>
+         </div>
+         <div
+           class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+         >
+           <h3 class="text-2xl font-semibold mb-4">"Mengenal Lebih Dekat Dunia Pemrograman: Bahasa Mana yang Harus Dipelajari?"</h3>
+           <p class="text-2xl">
+             Artikel ini akan membantu kamu memahami beberapa bahasa pemrograman populer dan pertimbangan dalam memilih bahasa yang tepat sesuai kebutuhanmu:
+           </p>
+           <p>1. Python: Bahasa yang Serbaguna
+             Python dikenal karena sintaksisnya yang sederhana dan kemampuannya untuk digunakan dalam berbagai aplikasi. Mulai dari pengembangan web hingga analisis data dan kecerdasan buatan, 
+             Python adalah pilihan yang solid untuk pemula. Keunggulan Python termasuk komunitas yang besar, dokumentasi yang melimpah, dan kemudahan integrasi dengan berbagai teknologi lain.</p>
+             <p>
+               2. JavaScript: Menghidupkan Web
+ Jika kamu tertarik dengan pengembangan web, JavaScript adalah bahasa yang sangat penting. Bahasa ini memungkinkan kamu untuk menambahkan interaktivitas ke situs web dan aplikasi web.
+  Dengan framework dan library seperti React dan Node.js, JavaScript menjadi kunci untuk pengembangan front-end dan back-end yang modern.
+             </p>
+         </div>
+         <div
+         class="gallery-item bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg"
+       >
+         <h3 class="text-2xl font-semibold mb-4">Transformasi Digital: Tantangan dan Peluang bagi Mahasiswa Informatika</h3>
+       <p>
+         Dalam artikel ini, kita akan mengeksplorasi bagaimana perubahan teknologi ini memengaruhi pendidikan dan karir mahasiswa informatika.
+       </p>
+       <p class="text-xl ">
+         Tantangan yang Dihadapi:</p>
+ <p> Kecepatan Perubahan Teknologi berkembang sangat cepat, dan ini bisa menjadi tantangan besar bagi mahasiswa informatika. 
+ Memahami dan menguasai teknologi terbaru memerlukan waktu dan usaha yang konsisten. 
+ Mahasiswa harus terus memperbarui keterampilan mereka agar tetap relevan di pasar kerja.
+       </p>
+   <p class="text-xl">Peluang yang Tersedia:</p>
+ <p>Inovasi dan Kreativitas Transformasi digital membuka pintu untuk inovasi dan kreativitas. 
+ Mahasiswa informatika memiliki kesempatan untuk mengembangkan aplikasi baru, 
+ solusi perangkat lunak, dan sistem yang dapat mengatasi berbagai tantangan modern.
+    </p>
+     </p>
+     </div>
+     </section>
+ 
+     <!-- Kontak -->
+     <section
+   id="kontak"
+   class="py-16 px-8 fade-in"
+ >
+   <h2 class="text-4xl font-bold mb-8 text-center">📞 Kontak</h2>
+   <p class="text-center mb-6 text-lg">
+     Apakah Anda tertarik untuk berdiskusi lebih lanjut tentang proyek, 
+     peluang kerja sama, atau hanya ingin berbagi ide? Saya sangat 
+     terbuka untuk berbagai kesempatan dan kolaborasi. Jangan ragu untuk 
+     menghubungi saya jika Anda memiliki pertanyaan, saran, atau hanya ingin 
+     berbincang tentang teknologi dan desain. 
+   </p>
+   <div class="flex justify-center space-x-6">
+     <a
+       href="https://instagram.com/prasepti_alan"
+       target="_blank"
+       class="text-gray-600 dark:text-gray-400 hover:text-blue-500"
+     >
+       <svg
+         fill="currentColor"
+         xmlns="http://www.w3.org/2000/svg"
+         width="40"
+         height="40"
+         viewBox="0 0 24 24"
+       >
+         <path
+           d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.057 1.956.24 2.41.403a4.998 4.998 0 011.796 1.147 4.998 4.998 0 011.147 1.796c.163.454.346 1.204.403 2.41.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.057 1.206-.24 1.956-.403 2.41a4.998 4.998 0 01-1.147 1.796 4.998 4.998 0 01-1.796 1.147c-.454.163-1.204.346-2.41.403-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.057-1.956-.24-2.41-.403a4.998 4.998 0 01-1.796-1.147 4.998 4.998 0 01-1.147-1.796c-.163-.454-.346-1.204-.403-2.41-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.057-1.206.24-1.956.403-2.41a4.998 4.998 0 011.147-1.796 4.998 4.998 0 011.796-1.147c.454-.163 1.204-.346 2.41-.403 1.266-.058 1.646-.07 4.85-.07M12 0c-3.259 0-3.667.012-4.947.071-1.276.058-2.152.249-2.91.53a6.992 6.992 0 00-2.56 1.657A6.992 6.992 0 00.602 4.794c-.281.758-.472 1.634-.53 2.91C.012 8.984 0 9.391 0 12s.012 3.016.071 4.296c.058 1.276.249 2.152.53 2.91a6.992 6.992 0 001.657 2.56 6.992 6.992 0 002.56 1.657c.758.281 1.634.472 2.91.53C8.984 23.988 9.391 24 12 24s3.016-.012 4.296-.071c1.276-.058 2.152-.249 2.91-.53a6.992 6.992 0 002.56-1.657 6.992 6.992 0 001.657-2.56c.281-.758.472-1.634.53-2.91.058-1.28.071-1.687.071-4.296s-.012-3.016-.071-4.296c-.058-1.276-.249-2.152-.53-2.91a6.992 6.992 0 00-1.657-2.56A6.992 6.992 0 0019.205.602c-.758-.281-1.634-.472-2.91-.53C15.016.012 14.609 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"
+         />
+       </svg>
+     </a>
+     <a
+       href="https://github.com/lannyyxx"
+       target="_blank"
+       class="text-gray-600 dark:text-gray-400 hover:text-blue-500"
+     >
+       <svg
+         fill="currentColor"
+         xmlns="http://www.w3.org/2000/svg"
+         width="40"
+         height="40"
+         viewBox="0 0 24 24"
+       >
+         <path
+           d="M12 2C6.48 2 2 6.48 2 12c0 4.41 2.87 8.15 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.71-2.78.6-3.37-1.34-3.37-1.34-.45-1.17-1.11-1.48-1.11-1.48-.91-.62.07-.61.07-.61 1.01.07 1.55 1.04 1.55 1.04.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.28.1-2.68 0 0 .84-.27 2.75 1.02A9.575 9.575 0 0112 6.8a9.594 9.594 0 012.5.34c1.91-1.29 2.75-1.02 2.75-1.02.55 1.4.2 2.43.1 2.68.64.7 1.03 1.59 1.03 2.68 0 3.85-2.35 4.7-4.58 4.95.36.31.68.93.68 1.88 0 1.36-.01 2.46-.01 2.8 0 .26.18.58.69.48C19.14 20.14 22 16.4 22 12c0-5.52-4.48-10-10-10z"
+         />
+       </svg>
+     </a>
+     <a
+       href="https://discord.com/users/Justoneyyz"
+       target="_blank"
+       class="text-gray-600 dark:text-gray-400 hover:text-blue-500"
+     >
+       <svg
+         fill="currentColor"
+         xmlns="http://www.w3.org/2000/svg"
+         width="40"
+         height="40"
+         viewBox="0 0 24 24"
+       >
+         <path
+           d="M20.317 4.3698C18.7258 3.7198 17.0778 3.2098 15.3878 2.8598C15.0488 3.4398 14.6578 4.1458 14.3478 4.8128C12.9418 4.5728 11.5348 4.5728 10.1528 4.8128C9.8428 4.1458 9.4518 3.4398 9.1128 2.8598C7.4218 3.2098 5.7738 3.7198 4.1828 4.3698C1.1728 8.4198 0.0628 12.4198 0.5628 16.3588C2.5278 17.8928 4.3828 18.9998 6.2028 19.9198C6.5628 19.2598 6.8728 18.5698 7.1328 17.8598C6.4128 17.5398 5.7428 17.1298 5.1128 16.6698C5.2528 16.5698 5.3928 16.4698 5.5328 16.3698C8.4628 18.1198 11.8328 18.1198 14.7128 16.3698C14.8528 16.4698 14.9928 16.5698 15.1328 16.6698C14.5028 17.1298 13.8328 17.5398 13.1128 17.8598C13.3728 18.5698 13.6828 19.2598 14.0428 19.9198C15.8628 18.9998 17.7178 17.8928 19.6828 16.3588C20.2028 12.4398 19.0828 8.4198 16.0428 4.3698ZM8.0428 14.2598C6.8128 14.2598 5.8328 13.1798 5.8328 11.8598C5.8328 10.5398 6.7928 9.4598 8.0428 9.4598C9.2928 9.4598 10.2728 10.5398 10.2528 11.8598C10.2528 13.1798 9.2928 14.2598 8.0428 14.2598ZM15.9628 14.2598C14.7328 14.2598 13.7528 13.1798 13.7528 11.8598C13.7528 10.5398 14.7128 9.4598 15.9628 9.4598C17.2128 9.4598 18.1928 10.5398 18.1728 11.8598C18.1728 13.1798 17.2128 14.2598 15.9628 14.2598Z"
+         />
+       </svg>
+     </a>
+   </div>
+ </section>
+ 
+ <footer class="text-center py-8 bg-gray-100 dark:bg-gray-800">
+   <p class="text-sm text-gray-600 dark:text-gray-400">
+     &copy; 2024 Praseptialan. All rights reserved.
+   </p>
+ </footer>
+ 
+ 
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+           const toggle = document.getElementById('toggle');
+           const body = document.body;
+       
+           toggle.addEventListener('click', () => {
+             body.classList.toggle('dark-mode');
+             const toggleCircle = document.querySelector('.toggle-circle');
+             if (body.classList.contains('dark-mode')) {
+               toggleCircle.style.transform = 'translateX(36px)';
+             } else {
+               toggleCircle.style.transform = 'translateX(0)';
+             }
+           });
+         });
+     
+ 
+       document.addEventListener('DOMContentLoaded', () => {
+     const hamburger = document.getElementById('hamburger');
+     const navLinks = document.querySelector('.nav-links');
+ 
+     hamburger.addEventListener('click', () => {
+       navLinks.classList.toggle('active');
+     });
+   });
+     const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+     const currentTheme = localStorage.getItem('theme');
+ 
+     if (currentTheme) {
+       document.documentElement.setAttribute('data-theme', currentTheme);
+ 
+       if (currentTheme === 'dark') {
+         toggleSwitch.checked = true;
+       }
+     }
+ 
+     function switchTheme(e) {
+       if (e.target.checked) {
+         document.documentElement.setAttribute('data-theme', 'dark');
+         localStorage.setItem('theme', 'dark');
+       } else {
+         document.documentElement.setAttribute('data-theme', 'light');
+         localStorage.setItem('theme', 'light');
+       }
+     }
+ 
+     toggleSwitch.addEventListener('change', switchTheme, false);
+ 
+     // Animate elements on scroll
+     const faders = document.querySelectorAll('.fade-in');
+     const sliders = document.querySelectorAll('.slide-in');
+ 
+     const appearOptions = {
+       threshold: 0,
+       rootMargin: '0px 0px -100px 0px',
+     };
+ 
+     const appearOnScroll = new IntersectionObserver(function (
+       entries,
+       appearOnScroll
+     ) {
+       entries.forEach((entry) => {
+         if (!entry.isIntersecting) {
+           return;
+         } else {
+           entry.target.classList.add('appear');
+           appearOnScroll.unobserve(entry.target);
+         }
+       });
+     },
+     appearOptions);
+ 
+     faders.forEach((fader) => {
+       appearOnScroll.observe(fader);
+     });
+ 
+     sliders.forEach((slider) => {
+       appearOnScroll.observe(slider);
+     });
+ 
+     
+      
+   </script>
+ </body>
+ </html>
+ 
